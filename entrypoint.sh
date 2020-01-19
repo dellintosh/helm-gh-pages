@@ -24,12 +24,12 @@ push() {
 
 REPOSITORY="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-CHART=$1
+CHART=${INPUT_CHART_PATH}
 if [[ -z $1 ]] ; then
   echo "Chart path parameter needed!" && exit 1;
 fi
 
-URL=$2
+URL=${INPUT_GH_PAGES_URL}
 if [[ -z $2 ]] ; then
   echo "Helm repository URL parameter needed!" && exit 1;
 fi
@@ -41,7 +41,7 @@ else
     echo "Skipping action because push does not refer to a git tag!" && exit 78;
 fi
 
-TAG_FILTER=$3
+TAG_FILTER=${INPUT_TAG_FILTER}
 if [[ -z $3 ]]; then
   echo "Tag filter not specified";
 else
@@ -49,6 +49,10 @@ else
     echo "Tag ${TAG} does not match filter ${TAG_FILTER}" && exit 78;
     fi
 fi
+
+echo "Chart: ${CHART}";
+echo "URL: ${URL}";
+echo "Filter: ${TAG_FILTER}";
 
 package
 push
