@@ -25,12 +25,12 @@ push() {
 REPOSITORY="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 CHART=${INPUT_CHART_PATH}
-if [[ -z $1 ]] ; then
+if [[ -z $CHART ]] ; then
   echo "Chart path parameter needed!" && exit 1;
 fi
 
 URL=${INPUT_GH_PAGES_URL}
-if [[ -z $2 ]] ; then
+if [[ -z $URL ]] ; then
   echo "Helm repository URL parameter needed!" && exit 1;
 fi
 
@@ -42,7 +42,7 @@ else
 fi
 
 TAG_FILTER=${INPUT_TAG_FILTER}
-if [[ -z $3 ]]; then
+if [[ -z $TAG_FILTER ]]; then
   echo "Tag filter not specified";
 else
     if [[ ${TAG} != *${TAG_FILTER}* ]]; then
