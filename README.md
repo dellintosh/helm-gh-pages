@@ -3,7 +3,7 @@
 GitHub Action that publishes Helm charts to a Helm repository hosted on GitHub
 Pages.
 
-## Example Usage
+## Usage - Basic
 
 This GitHub Action will package your Helm charts and deploy them to GitHub
 Pages for you! Here's a basic workflow example:
@@ -31,13 +31,12 @@ jobs:
 * `chart_path` (_required_): Path to the application chart you wish to publish.
 * `gh_pages_URL` (_required_): URL pointing to the output `gh-pages` site.
 * `tag_filter` (_optional_): Git tag filter
+* `GITHUB_TOKEN` (_required_): Environment Variable pulled from secrets. This is used to publish Helm chart assets to the `gh-pages` branch.
 
-In addition to the above settings, you need to provide a `GITHUB_TOKEN` environment
-variable.  This is used to publish the helm chart assets to the `gh-pages` branch.
+In order to use this action your Git repository should have a `gh-pages` branch
+created.
 
-In order to use this action your Git repository should have a `gh-pages` branch published on GitHub Pages.
-
-## Additional
+## Filter by git tag
 
 Publish the Helm chart located at `charts/my-app` when the Git tag contains the `chart-` prefix:
 
@@ -56,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## Workflow
+## How it Works
 
 Assuming your GitHub repository has a Helm chart named `app` located at
 `chart/app` the release procedure could be:
@@ -85,3 +84,9 @@ will do the following:
 
 In couple of seconds GitHub will publish the change to GitHub Pages and your
 chart v1.0.0 will be available for download.
+
+## Credits
+
+This GitHub Action is a modified version of [stefanprodan](https://github.com/stefanprodan/gh-actions) original `gh-actions/helm-gh-pages` Action. Sadly, his
+version was not updated when GitHub released Actions v2, so I modified it to
+work with the v2 release.
