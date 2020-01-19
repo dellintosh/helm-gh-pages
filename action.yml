@@ -1,12 +1,19 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+name: 'Helm gh-pages Action'
+description: 'This GitHub Action publishes Helm charts to a Helm repository hosted on GitHub Pages'
+author: 'Justus Luthy'
+inputs:
+  chart_path:
+    description: 'Helm chart path (required)'
+    required: true
+  gh_pages_URL:
+    description: 'GitHub Pages URL (required)'
+    required: true
+  tag_filter:
+    description: 'Git tag filter (optional)'
+    default: ''
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.chart_path }} ${{ inputs.gh_pages_URL }} ${{ inputs.tag_filter }}
