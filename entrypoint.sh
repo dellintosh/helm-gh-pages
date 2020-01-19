@@ -34,27 +34,25 @@ if [[ -z $URL ]] ; then
   echo "Helm repository URL parameter needed!" && exit 1;
 fi
 
-TAG=$(echo ${GITHUB_REF} | rev | cut -d/ -f1 | rev)
-if [[ "${GITHUB_REF}" == "refs/tags"* ]]; then
-    echo "Starting action for tag ${TAG}";
-else
-    echo "Skipping action because push does not refer to a git tag!" && exit 0;
-fi
+# TAG=$(echo ${GITHUB_REF} | rev | cut -d/ -f1 | rev)
+# if [[ "${GITHUB_REF}" == "refs/tags"* ]]; then
+#     echo "Starting action for tag ${TAG}";
+# else
+#     echo "Skipping action because push does not refer to a git tag!" && exit 0;
+# fi
 
-TAG_FILTER=${INPUT_TAG_FILTER}
-if [[ -z $TAG_FILTER ]]; then
-  echo "Tag filter not specified";
-else
-    if [[ ${TAG} != *${TAG_FILTER}* ]]; then
-    echo "Tag ${TAG} does not match filter ${TAG_FILTER}" && exit 0;
-    fi
-fi
+# TAG_FILTER=${INPUT_TAG_FILTER}
+# if [[ -z $TAG_FILTER ]]; then
+#   echo "Tag filter not specified";
+# else
+#     if [[ ${TAG} != *${TAG_FILTER}* ]]; then
+#     echo "Tag ${TAG} does not match filter ${TAG_FILTER}" && exit 0;
+#     fi
+# fi
 
 echo "Chart: ${CHART}";
 echo "URL: ${URL}";
 echo "Filter: ${TAG_FILTER}";
-
-env
 
 package
 push
